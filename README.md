@@ -1,6 +1,6 @@
 ## Employees service (Node + React)
 
-Project can be launched on local machine if docker application installed.
+Project can be launched on local machine if docker application is already installed.
 To start up with it use docker-compose command within project root folder:
 
 `docker-compose up -d`
