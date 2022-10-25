@@ -1,15 +1,13 @@
-import { Buffer } from "buffer";
 import TableHeader from "./TableHeader";
 import Table from "./Table";
 import Pagination from "./Pagination";
 import { useEffect, useState } from "react";
-import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
 const TOKEN_URI = "http://localhost:5000/api/v1/token";
 const USERS_URI = "http://localhost:5000/api/v1/users";
 
-export function useFetch(uri, params, refreshTable, setRefreshTable, ...rest) {
+export function useFetch(uri, params, refreshTable, setRefreshTable) {
   const [data, setData] = useState({});
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -48,7 +46,7 @@ export function useFetch(uri, params, refreshTable, setRefreshTable, ...rest) {
           .then(() => setLoading(false))
           .then(() => setRefreshTable(false))
           .catch(error => {setError(error); setLoading(false);});
-  }, [uri, params, refreshTable, ...rest]);
+  }, [uri, params, refreshTable, setRefreshTable]);
 
   return {
       loading,
@@ -63,7 +61,7 @@ function MainTable({refreshTable, setRefreshTable}) {
   const [offset, setOffset] = useState(-1);
   const [currentPage, setCurrentPage] = useState(1);
   const [perPage, setPerPage] = useState(5);
-  const {data, loading, error} = useFetch(USERS_URI, params, refreshTable, setRefreshTable);
+  const {data, error} = useFetch(USERS_URI, params, refreshTable, setRefreshTable);
   
   useEffect(() => {
     let newQueryParams = {};
@@ -77,7 +75,7 @@ function MainTable({refreshTable, setRefreshTable}) {
 
     setRefreshTable(true);
     setParams(newQueryParams);
-  }, [offset, currentPage, perPage]);
+  }, [offset, currentPage, perPage, setRefreshTable]);
 
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);

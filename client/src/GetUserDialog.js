@@ -1,5 +1,5 @@
 import { Buffer } from "buffer";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
