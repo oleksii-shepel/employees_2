@@ -2,9 +2,9 @@ import { useState, useEffect } from "react";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const TOKEN_URI = "http://localhost:5000/api/v1/token";
-const POSITIONS_URI = "http://localhost:5000/api/v1/positions";
-const USERSPOST_URI = "http://localhost:5000/api/v1/users";
+const TOKEN_URI = "https://abz-application.herokuapp.com/api/v1/token";
+const POSITIONS_URI = "https://abz-application.herokuapp.com/api/v1/positions";
+const USERSPOST_URI = "https://abz-application.herokuapp.com/api/v1/users";
 
 export function useFetch(uri, params) {
   const [data, setData] = useState();
