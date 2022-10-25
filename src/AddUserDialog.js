@@ -1,4 +1,3 @@
-import { Buffer } from "buffer";
 import { useState, useEffect } from "react";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -87,7 +86,7 @@ export function usePostUser(uri, params, refreshTable) {
       .then((value) => {setLoading(false); toast(value.message); })
       .then((value)=> { refreshTable(); return value; })
       .catch(error => {setError(error); setLoading(false); toast.error(error.message); });
-  }, [uri, params]);
+  }, [uri, params, refreshTable]);
 
   return {
     loading,
@@ -105,7 +104,7 @@ function AddUserDialog({refreshTable}) {
   const [params, setParams] = useState(null);
   const [file, setFile] = useState(null);
   const { loading, data, error } = useFetch(POSITIONS_URI, {});
-  const { loading2, data2, error2 } = usePostUser(USERSPOST_URI, params, refreshTable);
+  const { error2 } = usePostUser(USERSPOST_URI, params, refreshTable);
 
   const submit = async (event) => {
     event.preventDefault();
