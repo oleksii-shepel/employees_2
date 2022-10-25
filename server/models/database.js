@@ -5,7 +5,7 @@ dotenv.config({ path: './config.env' });
 
 let database_url = process.env.DATABASE_URL || "postgres://username:password@postgres:5432/db";
 export const sequelize = new Sequelize(database_url, {
-    logging: false,
+    logging: true,
     dialectOptions: {
       ssl: {
         require: true,
