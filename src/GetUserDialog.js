@@ -3,8 +3,8 @@ import { useState } from "react";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const TOKEN_URI = "http://localhost:5000/api/v1/token";
-const USER_ID_URI = "http://localhost:5000/api/v1/users/";
+const TOKEN_URI = "https://abz-application.herokuapp.com/api/v1/token";
+const USER_ID_URI = "https://abz-application.herokuapp.com/api/v1/users/";
 
 function GetUserDialog() {
     const [userId, setUserId] = useState("");

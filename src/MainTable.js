@@ -4,8 +4,8 @@ import Pagination from "./Pagination";
 import { useEffect, useState } from "react";
 import 'react-toastify/dist/ReactToastify.css';
 
-const TOKEN_URI = "http://localhost:5000/api/v1/token";
-const USERS_URI = "http://localhost:5000/api/v1/users";
+const TOKEN_URI = "https://abz-application.herokuapp.com/api/v1/token";
+const USERS_URI = "https://abz-application.herokuapp.com/api/v1/users";
 
 export function useFetch(uri, params, refreshTable, setRefreshTable) {
   const [data, setData] = useState({});
