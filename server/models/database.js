@@ -3,7 +3,7 @@ import dotenv from 'dotenv'
 
 dotenv.config({ path: './config.env' });
 
-let database_url = process.env.DATABASE_URL || "postgres://username:password@postgres:5432/db";
+let database_url = `${process.env.DATABASE_URL}?sslmode=require` || "postgres://username:password@postgres:5432/db";
 export const sequelize = new Sequelize(database_url);
 console.log(database_url);
 
