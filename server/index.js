@@ -26,10 +26,12 @@ app.use(cors());
 app.use('/api/v1/', userRoute);
 app.use(exceptionHandler);
 
-app.listen(5000, async () => {
+let port = process.env.PORT || 5000;
+
+app.listen(port, async () => {
     console.log('Establishing connection...');
     await sequelize.authenticate();
     console.log('Connection has been established successfully.');
 
-    console.log("Server is listening on port 5000")
+    console.log(`Server is listening on port ${port}`)
 })

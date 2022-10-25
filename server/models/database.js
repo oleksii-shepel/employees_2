@@ -3,8 +3,7 @@ import dotenv from 'dotenv'
 
 dotenv.config({ path: './config.env' });
 
-export const sequelize = new Sequelize(`postgres://${process.env.POSTGRES_USER}:${process.env.POSTGRES_PASSWORD}@postgres:5432/${process.env.POSTGRES_DB}`)
-console.log(`postgres://${process.env.POSTGRES_USER}:${process.env.POSTGRES_PASSWORD}@postgres:5432/${process.env.POSTGRES_DB}`);
+export const sequelize = new Sequelize(process.env.DATABASE_URL || "postgres://username:password@postgres:5432/db");
 
 import user2 from "./user.js";
 export const User = user2(sequelize, DataTypes);
