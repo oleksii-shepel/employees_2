@@ -18,6 +18,7 @@ const protect = async (req, res, next) => {
 
     req.session.tokenValid = false;
 
+    console.log(token);
     if (!token) {
         throw new Error('Not authorized to access this route');
     }
