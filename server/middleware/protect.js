@@ -8,7 +8,7 @@ const Account = account2(sequelize, DataTypes);
 const protect = async (req, res, next) => {
     let token;
     
-    console.log(req.headers.authorization);
+    console.log(req);
     if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
         token = req.headers.authorization.split(' ')[1];
     }
