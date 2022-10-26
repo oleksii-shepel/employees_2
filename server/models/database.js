@@ -5,13 +5,14 @@ dotenv.config({ path: './config.env' });
 
 let database_url = process.env.DATABASE_URL || "postgres://username:password@postgres:5432/db";
 export const sequelize = new Sequelize(database_url, {
-    logging: true,
-    dialectOptions: {
-      ssl: {
-        require: true,
-        rejectUnauthorized: false
-      } 
-    }});
+  logging: true,
+  dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false
+    }
+  }
+});
 
 console.log(database_url);
 
@@ -26,8 +27,8 @@ export const Account = account2(sequelize, DataTypes);
 User.belongsTo(Position, { foreignKey: "position_id", as: "position" });
 
 export default {
-    User,
-    Position,
-    Account,
-    sequelize
+  User,
+  Position,
+  Account,
+  sequelize
 }

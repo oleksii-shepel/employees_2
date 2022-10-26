@@ -1,24 +1,19 @@
 import jwt from 'jsonwebtoken';
-import { Sequelize, DataTypes } from 'sequelize';
-const sequelize = new Sequelize(`postgres://${process.env.POSTGRES_USER}:${process.env.POSTGRES_PASSWORD}@postgres:5432/${process.env.POSTGRES_DB}`)
-
-import account2 from "../models/account.js";
-const Account = account2(sequelize, DataTypes);
+import { Account } from '../models/database.js';
 
 const protect = async (req, res, next) => {
     let token;
-    
-    console.log(req);
+
     if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
         token = req.headers.authorization.split(' ')[1];
     }
-    
+
     if (req.session.tokenValid === false) {
         throw new Error('Token is not valid. Please request new token');
     }
 
     req.session.tokenValid = false;
-    
+
     if (!token) {
         throw new Error('Not authorized to access this route');
     }
