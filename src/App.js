@@ -8,15 +8,16 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useState } from 'react';
 
 function App() {
-  const [refreshTable, setRefreshTable] = useState(false);
   return (
     <div className="app">
       <div className='container'>
         <ToastContainer />
-        <MainTable refreshTable={refreshTable} setRefreshTable={(value) => setRefreshTable(value)}></MainTable>
-        <h1>Add user:</h1>
-        <AddUserDialog refreshTable={() => setRefreshTable(true)}></AddUserDialog>
-        <h1>Get user by id: [1-45]</h1>
+        <MainTable></MainTable>
+        <br/>
+        <h3>Add user:</h3>
+        <AddUserDialog></AddUserDialog>
+        <br/>
+        <h3>Get user by id:</h3>
         <GetUserDialog></GetUserDialog>
       </div>
       

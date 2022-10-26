@@ -7,14 +7,13 @@ import 'react-toastify/dist/ReactToastify.css';
 const TOKEN_URI = "https://abz-application.herokuapp.com/api/v1/token";
 const USERS_URI = "https://abz-application.herokuapp.com/api/v1/users";
 
-export function useFetch(uri, params, refreshTable, setRefreshTable) {
+export function useFetch(uri, params) {
   const [data, setData] = useState({});
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
       if (!uri) return;
-      if(!refreshTable) return;
       let url = new URL(uri);
       for (let k in params) { url.searchParams.append(k, params[k]); }
 
@@ -44,9 +43,8 @@ export function useFetch(uri, params, refreshTable, setRefreshTable) {
           .then((value) => { setData(value); return value; })
           .then((value) => { console.log(value); })
           .then(() => setLoading(false))
-          .then(() => setRefreshTable(false))
           .catch(error => {setError(error); setLoading(false);});
-  }, [uri, params, refreshTable, setRefreshTable]);
+  }, [uri, params]);
 
   return {
       loading,
@@ -56,12 +54,12 @@ export function useFetch(uri, params, refreshTable, setRefreshTable) {
 }
 
 
-function MainTable({refreshTable, setRefreshTable}) {
+function MainTable() {
   const [params, setParams] = useState({});
   const [offset, setOffset] = useState(-1);
   const [currentPage, setCurrentPage] = useState(1);
   const [perPage, setPerPage] = useState(5);
-  const {data, error} = useFetch(USERS_URI, params, refreshTable, setRefreshTable);
+  const {data, error} = useFetch(USERS_URI, params);
   
   useEffect(() => {
     let newQueryParams = {};
@@ -73,9 +71,8 @@ function MainTable({refreshTable, setRefreshTable}) {
       newQueryParams = { page: currentPage, count: perPage };
     }
 
-    setRefreshTable(true);
     setParams(newQueryParams);
-  }, [offset, currentPage, perPage, setRefreshTable]);
+  }, [offset, currentPage, perPage]);
 
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -94,7 +91,6 @@ function MainTable({refreshTable, setRefreshTable}) {
   }
 
   if (error) return;
-  // if (loading) return (<p>Loading...</p>);
 
   return (
     <>
