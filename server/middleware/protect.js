@@ -8,6 +8,7 @@ const Account = account2(sequelize, DataTypes);
 const protect = async (req, res, next) => {
     let token;
     
+    console.log(req.headers.authorization);
     if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
         token = req.headers.authorization.split(' ')[1];
     }
@@ -17,8 +18,7 @@ const protect = async (req, res, next) => {
     }
 
     req.session.tokenValid = false;
-
-    console.log(token);
+    
     if (!token) {
         throw new Error('Not authorized to access this route');
     }
