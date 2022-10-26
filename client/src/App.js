@@ -14,9 +14,9 @@ function App() {
       <div className='container'>
         <ToastContainer />
         <MainTable refreshTable={refreshTable} setRefreshTable={(value) => setRefreshTable(value)}></MainTable>
-        <br />
+        <h1>Add user:</h1>
         <AddUserDialog refreshTable={() => setRefreshTable(true)}></AddUserDialog>
-        <br />
+        <h1>Get user by id: [1-45]</h1>
         <GetUserDialog></GetUserDialog>
       </div>
       
