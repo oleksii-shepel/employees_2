@@ -5,6 +5,7 @@ function Table({ data }) {
         <table className="table table-striped">
             <thead>
                 <tr>
+                    <th>Id</th>
                     <th>Name</th>
                     <th>Email</th>
                     <th>Phone</th>
@@ -17,6 +18,7 @@ function Table({ data }) {
                     let buffer = !item.photo ? new Buffer.from([]) : new Buffer.from(item.photo.data);
                     let base64 = buffer.toString('base64');
                     return (<tr key={item.id}>
+                        <td>{item.id}</td>
                         <td>{item.name}</td>
                         <td>{item.email}</td>
                         <td>{item.phone}</td>

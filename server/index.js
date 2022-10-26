@@ -22,15 +22,7 @@ app.use(bodyParser.urlencoded());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(cookieSession({ name: 'session', keys: ['key1', 'key2'] }));
-//app.use(cors());
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin','*');
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
-    res.header('Access-Control-Allow-Credentials', true);
-    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, OPTIONS, DELETE');
-    next();
-  });
-
+app.use(cors());
 app.use('/api/v1/', userRoute);
 app.use(exceptionHandler);
 

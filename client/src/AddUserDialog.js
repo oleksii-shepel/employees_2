@@ -38,7 +38,6 @@ export function useFetch(uri, params) {
         else throw new Error(`${response.status} ${response.statusText}`);
       })
       .then((value) => { setData(value); return value; })
-      .then((value) => { console.log(value); return value; })
       .then((value) => {setLoading(false); })
       .catch(error => {setError(error); setLoading(false); toast.error(error.message);});
   }, [uri, params]);
@@ -50,7 +49,7 @@ export function useFetch(uri, params) {
   };
 }
 
-export function usePostUser(uri, params, refreshTable) {
+export function usePostUser(uri, params) {
   const [data, setData] = useState();
   const [error, setError] = useState();
   const [loading, setLoading] = useState(true);
@@ -84,9 +83,8 @@ export function usePostUser(uri, params, refreshTable) {
       .then((value) => { setData(value); return value; })
       .then((value) => { console.log(value); return value; })
       .then((value) => {setLoading(false); toast(value.message); })
-      .then((value)=> { refreshTable(); return value; })
       .catch(error => {setError(error); setLoading(false); toast.error(error.message); });
-  }, [uri, params, refreshTable]);
+  }, [uri, params]);
 
   return {
     loading,
@@ -95,7 +93,7 @@ export function usePostUser(uri, params, refreshTable) {
   };
 }
 
-function AddUserDialog({refreshTable}) {
+function AddUserDialog() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -103,8 +101,8 @@ function AddUserDialog({refreshTable}) {
   const [photo, setPhoto] = useState("");
   const [params, setParams] = useState(null);
   const [file, setFile] = useState(null);
-  const { loading, data, error } = useFetch(POSITIONS_URI, {});
-  const { error2 } = usePostUser(USERSPOST_URI, params, refreshTable);
+  const { loading, data, error } = useFetch(POSITIONS_URI);
+  const { error2 } = usePostUser(USERSPOST_URI, params);
 
   const submit = async (event) => {
     event.preventDefault();
