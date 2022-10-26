@@ -54,13 +54,13 @@ export function useFetch(uri, params) {
 }
 
 
-function MainTable() {
+function MainTable({userAdded}) {
   const [params, setParams] = useState({});
   const [offset, setOffset] = useState(-1);
   const [currentPage, setCurrentPage] = useState(1);
   const [perPage, setPerPage] = useState(5);
   const {data, error} = useFetch(USERS_URI, params);
-  
+
   useEffect(() => {
     let newQueryParams = {};
 
@@ -70,9 +70,9 @@ function MainTable() {
     else {
       newQueryParams = { page: currentPage, count: perPage };
     }
-
+ 
     setParams(newQueryParams);
-  }, [offset, currentPage, perPage]);
+  }, [offset, currentPage, perPage, userAdded]);
 
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);

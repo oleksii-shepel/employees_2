@@ -93,7 +93,7 @@ export function usePostUser(uri, params) {
   };
 }
 
-function AddUserDialog() {
+function AddUserDialog({setUserAdded}) {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -115,6 +115,7 @@ function AddUserDialog() {
     formData.append("photo", photo);
     formData.append("file", file);
     setParams(formData);
+    setUserAdded();
   }
 
   if (error || error2) return;
