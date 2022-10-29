@@ -12,15 +12,18 @@ code {
     monospace;
 }
 
-li {
+li.page-item {
   list-style: none;
 }
 
 .pagination {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   gap: 10px;
 }
+
+
 
 .user-image {
   width: 50px;
