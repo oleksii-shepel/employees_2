@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { TableContext } from "./TableContext";
 
 const TOKEN_URI = "https://abz-application.herokuapp.com/api/v1/token";
 const POSITIONS_URI = "https://abz-application.herokuapp.com/api/v1/positions";
@@ -49,7 +50,7 @@ export function useFetch(uri, params) {
   };
 }
 
-export function usePostUser(uri, params) {
+export function usePostUser(uri, params, setUserUploaded) {
   const [data, setData] = useState();
   const [error, setError] = useState();
   const [loading, setLoading] = useState(true);
@@ -82,9 +83,9 @@ export function usePostUser(uri, params) {
        })
       .then((value) => { setData(value); return value; })
       .then((value) => { console.log(value); return value; })
-      .then((value) => {setLoading(false); toast(value.message); })
+      .then((value) => {setLoading(false); toast(value.message); setUserUploaded(true);})
       .catch(error => {setError(error); setLoading(false); toast.error(error.message); });
-  }, [uri, params]);
+  }, [uri, params, setUserUploaded]);
 
   return {
     loading,
@@ -93,7 +94,8 @@ export function usePostUser(uri, params) {
   };
 }
 
-function AddUserDialog({setUserAdded}) {
+function AddUserDialog() {
+  const table = useContext(TableContext);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -101,8 +103,9 @@ function AddUserDialog({setUserAdded}) {
   const [photo, setPhoto] = useState("");
   const [params, setParams] = useState(null);
   const [file, setFile] = useState(null);
+  const [userUploaded, setUserUploaded] = useState(false);
   const { loading, data, error } = useFetch(POSITIONS_URI);
-  const { error2 } = usePostUser(USERSPOST_URI, params);
+  const { error2 } = usePostUser(USERSPOST_URI, params, setUserUploaded);
 
   const submit = async (event) => {
     event.preventDefault();
@@ -115,8 +118,16 @@ function AddUserDialog({setUserAdded}) {
     formData.append("photo", photo);
     formData.append("file", file);
     setParams(formData);
-    setUserAdded();
   }
+
+  useEffect(() => {
+    (async() => {
+      if(userUploaded) {
+        await table.dataAdded();
+        setUserUploaded(false);
+      }
+    })();
+  }, [table, userUploaded, setUserUploaded]);
 
   if (error || error2) return;
   if (loading) return <p>Loading...</p>;
