@@ -35,4 +35,3 @@ After that you will be able to add the project database to panel, use for that A
 - Host: **postgres**
 - Username: **username**
 - Password: **password**
-
