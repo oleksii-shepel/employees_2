@@ -73,13 +73,6 @@ export function TableContextProvider(props) {
         })();
     }, [currentPage, offset, perPage]);
     
-    
-    // useEffect(() => {
-    //     (async ()=> {
-    //         loadData(currentPage, perPage, offset);
-    //     })();
-    // }, [data]);
-    
     return (
         <TableContext.Provider value={{
             loading, setLoading,
