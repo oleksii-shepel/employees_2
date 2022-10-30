@@ -10,10 +10,10 @@ function MainTable() {
 
   useEffect(() => {
     (async () => {
-      await table.loadData();
+      await table.loadData(table.currentPage, table.perPage, table.offset);
     })();
   }, []);
-  
+
   const paginate = (pageNumber) => {
     table.setCurrentPage(pageNumber);
   }
