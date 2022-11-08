@@ -24,6 +24,25 @@
   color: white;
 }
 
+h3 {
+  margin: 1em auto;
+  padding: 0.3em;
+  padding-left: 0.7em;
+  position: relative;
+  background: linear-gradient(to right, rgba(136, 151, 219, 0.5), rgba(248, 249, 255, 0.5), rgba(255, 255, 255, 0.5));
+}
+
+h3::before {
+  content: " ";
+  position: absolute;
+  display: block;
+  left: 0;
+  top: 0;
+  width: 0.2em;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+}
+
 .App-link {
   color: #61dafb;
 }

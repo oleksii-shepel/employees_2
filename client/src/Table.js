@@ -1,8 +1,9 @@
+import Table from 'react-bootstrap/Table';
 import { Buffer } from "buffer";
 
-function Table({ data }) {
+function InnerTable({ data }) {
     return (
-        <table className="table table-striped">
+        <Table striped bordered hover>
             <thead>
                 <tr>
                     <th>Id</th>
@@ -27,7 +28,7 @@ function Table({ data }) {
                     </tr>);
                 })}
             </tbody>
-        </table>);
+        </Table>);
 }
 
-export default Table;
+export default InnerTable;

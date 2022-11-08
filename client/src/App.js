@@ -15,13 +15,14 @@ function App() {
       <div className='container'>
         <ToastContainer />
         <TableContextProvider>
+          <h3> Main Table</h3>
           <MainTable></MainTable>
           <br/>
-          <h3>Add user:</h3>
+          <h3>Add user</h3>
           <AddUserDialog></AddUserDialog>
           <br/>
         </TableContextProvider>
-        <h3>Get user by id:</h3>
+        <h3>Get user by id</h3>
         <GetUserDialog></GetUserDialog>
       </div>
       

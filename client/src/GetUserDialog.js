@@ -2,6 +2,10 @@ import { Buffer } from "buffer";
 import { useState } from "react";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Button from 'react-bootstrap/Button';
+import Table from 'react-bootstrap/Table';
+import Form from 'react-bootstrap/Form';
+import Col from 'react-bootstrap/Col';
 
 const TOKEN_URI = "https://abz-application.herokuapp.com/api/v1/token";
 const USER_ID_URI = "https://abz-application.herokuapp.com/api/v1/users/";
@@ -14,19 +18,19 @@ function GetUserDialog() {
 
     const onSubmit = async (event, uri, userId) => {
         event.preventDefault();
-        
+
         if (!uri || !userId) {
             toast.error("Specify user id");
             return;
         }
-        
+
         const asyncFetch = async () => {
             let url = `${uri}${userId}`;
             setLoading(true);
-            
+
             return fetch(TOKEN_URI)
                 .then(response => {
-                    if(response.ok) return response.json();
+                    if (response.ok) return response.json();
                     else throw new Error(`${response.status} ${response.statusText}`);
                 })
                 .then((response) => {
@@ -43,13 +47,13 @@ function GetUserDialog() {
                         });
                 })
                 .then(response => {
-                    if(response.ok) return response.json();
+                    if (response.ok) return response.json();
                     else throw new Error(`${response.status} ${response.statusText}`);
                 })
                 .then((value) => { setData(value); return value; })
                 .then((value) => { console.log(value); return value; })
-                .then((value) => {setLoading(false); toast(value.message);})
-                .catch(err => {setError(err); setLoading(false); toast.error(err.message);});
+                .then((value) => { setLoading(false); toast(value.message); })
+                .catch(err => { setError(err); setLoading(false); toast.error(err.message); });
         }
 
         await asyncFetch();
@@ -57,12 +61,14 @@ function GetUserDialog() {
 
     if (error) return;
     return (
-        <form onSubmit={(event) => onSubmit(event, USER_ID_URI, userId)}>
-            <label forhtml="userId" className="form-label">User Id</label>
-            <input id="userId" className="form-control" type="number" value={userId} onChange={(event) => { setUserId(event.target.value) }}></input>
-            <input type="submit" className="form-control btn btn-primary" value="Submit" />
+        <Form onSubmit={(event) => onSubmit(event, USER_ID_URI, userId)}>
+            <Form.Group as={Col} className="mb-3" xs={4}>
+                <Form.Label htmlFor="userId" className="form-label">User Id</Form.Label>
+                <Form.Control id="userId" className="form-control" type="number" value={userId} onChange={(event) => { setUserId(event.target.value) }}></Form.Control>
+            </Form.Group>
+            <Button as={Col} type="submit" xs={1} className="btn btn-primary">Submit</Button>
             {!loading && data && data.user &&
-                (<table className="table table-striped">
+                (<Table className="table table-striped">
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -81,10 +87,10 @@ function GetUserDialog() {
                             <td><img className="user-image" src={`data:image/jpg;base64,${new Buffer.from(data.user.photo.data).toString('base64')}`} alt="" /></td>
                         </tr>)}
                     </tbody>
-                </table>)
+                </Table>)
             }
             {loading && (<p>Loading...</p>)}
-        </form>
+        </Form>
     );
 }
 
