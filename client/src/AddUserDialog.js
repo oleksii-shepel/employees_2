@@ -111,7 +111,11 @@ function AddUserDialog() {
   const { loading, data, error } = useFetch(POSITIONS_URI);
   const { error2 } = usePostUser(USERSPOST_URI, params, setUserUploaded);
 
-  const submit = async (event) => {
+  const save = (event) => {
+    onSubmitEvent(event);
+  }
+
+  const onSubmitEvent = (event) => {
     event.preventDefault();
 
     let formData = new FormData();
@@ -144,7 +148,7 @@ function AddUserDialog() {
   );
 
   return (
-    <Form encType="multipart/form-data" onSubmit={(event) => submit(event)}>
+    <Form role="form" encType="multipart/form-data">
       <Form.Group as={Col} className="mb-3"  xs={4}>
         <Form.Label className="form-label">Username</Form.Label>
         <Form.Control id="userName" className="form-control" type="text" value={username} onChange={(event) => { setUsername(event.target.value) }}></Form.Control>
@@ -170,7 +174,7 @@ function AddUserDialog() {
         <Form.Label forhtml="userPhoto" className="form-label">Image</Form.Label>
         <Form.Control id="userPhoto" className="form-control" type="file" value={photo} onChange={(event) => { setPhoto(event.target.value); setFile(event.target.files[0]); }}></Form.Control>
       </Form.Group>
-      <Button as={Col} type="submit" xs={1} className="btn btn-primary">Submit</Button>
+      <Button as={Col} type="submit" xs={2} className="mb-3 btn btn-primary" onClick={onSubmitEvent}>Submit</Button>
     </Form>
   );
 }

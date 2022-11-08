@@ -6,6 +6,7 @@ import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
 import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
+import logo from './logo.svg';
 
 const TOKEN_URI = "https://abz-application.herokuapp.com/api/v1/token";
 const USER_ID_URI = "https://abz-application.herokuapp.com/api/v1/users/";
@@ -16,7 +17,9 @@ function GetUserDialog() {
     const [data, setData] = useState();
     const [error, setError] = useState();
 
-    const onSubmit = async (event, uri, userId) => {
+    const onSubmitEvent = async (event) => {
+        let uri = USER_ID_URI;
+
         event.preventDefault();
 
         if (!uri || !userId) {
@@ -61,12 +64,12 @@ function GetUserDialog() {
 
     if (error) return;
     return (
-        <Form onSubmit={(event) => onSubmit(event, USER_ID_URI, userId)}>
+        <Form>
             <Form.Group as={Col} className="mb-3" xs={4}>
                 <Form.Label htmlFor="userId" className="form-label">User Id</Form.Label>
                 <Form.Control id="userId" className="form-control" type="number" value={userId} onChange={(event) => { setUserId(event.target.value) }}></Form.Control>
             </Form.Group>
-            <Button as={Col} type="submit" xs={1} className="btn btn-primary">Submit</Button>
+            <Button as={Col} type="submit" xs={2} className="mb-3 btn btn-primary" onClick={onSubmitEvent}>Submit</Button>
             {!loading && data && data.user &&
                 (<Table className="table table-striped">
                     <thead>
@@ -87,9 +90,14 @@ function GetUserDialog() {
                             <td><img className="user-image" src={`data:image/jpg;base64,${new Buffer.from(data.user.photo.data).toString('base64')}`} alt="" /></td>
                         </tr>)}
                     </tbody>
-                </Table>)
+                </Table>
+                )
             }
-            {loading && (<p>Loading...</p>)}
+            {loading && (<div>
+                <div className="filler">
+                    <img src={logo} className="App-logo" alt="logo" />
+                </div>
+            </div>)}
         </Form>
     );
 }
