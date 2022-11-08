@@ -4,6 +4,7 @@ import Pagination from "./Pagination";
 import { useContext } from "react";
 import 'react-toastify/dist/ReactToastify.css';
 import { TableContext } from "./TableContext";
+import logo from './logo.svg';
 
 function MainTable() {
   const table = useContext(TableContext);
@@ -13,6 +14,13 @@ function MainTable() {
   }
 
   if (table.error) return;
+  if (table.loading) return (
+    <div>
+      <div className="filler">
+        <img src={logo} className="App-logo" alt="logo" />
+      </div>
+    </div>
+  );
 
   return (
     <>

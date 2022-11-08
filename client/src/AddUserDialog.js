@@ -5,6 +5,7 @@ import { TableContext } from "./TableContext";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
+import logo from './logo.svg';
 
 const TOKEN_URI = "https://abz-application.herokuapp.com/api/v1/token";
 const POSITIONS_URI = "https://abz-application.herokuapp.com/api/v1/positions";
@@ -133,7 +134,14 @@ function AddUserDialog() {
   }, [table, userUploaded, setUserUploaded]);
 
   if (error || error2) return;
-  if (loading) return <p>Loading...</p>;
+  
+  if (loading) return (
+    <div>
+      <div className="filler">
+        <img src={logo} className="App-logo" alt="logo" />
+      </div>
+    </div>
+  );
 
   return (
     <Form encType="multipart/form-data" onSubmit={(event) => submit(event)}>

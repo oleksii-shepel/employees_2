@@ -1,5 +1,4 @@
 import './App.css';
-
 import MainTable from './MainTable';
 import AddUserDialog from './AddUserDialog';
 import GetUserDialog from './GetUserDialog';
@@ -11,8 +10,7 @@ function App() {
   
 
   return (
-    <div className="app">
-      <div className='container'>
+    <div className="container">
         <ToastContainer />
         <TableContextProvider>
           <h3>Main table</h3>
@@ -25,8 +23,6 @@ function App() {
         <h3>Get user by id</h3>
         <GetUserDialog></GetUserDialog>
       </div>
-      
-    </div>
   );
 }
 

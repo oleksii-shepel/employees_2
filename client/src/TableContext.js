@@ -55,8 +55,9 @@ export function TableContextProvider(props) {
     }
 
     const dataAdded = async () => {
-        await loadData(Math.ceil(dataLength() + 1 / perPage), perPage, offset);
-        setCurrentPage(Math.ceil(dataLength() + 1 / perPage));
+        let currentPage = Math.ceil(dataLength() + 1 / perPage);
+        await loadData(currentPage, perPage, offset);
+        setCurrentPage(currentPage);
     }
 
     const dataLength = () => {
