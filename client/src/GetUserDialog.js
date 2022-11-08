@@ -71,7 +71,7 @@ function GetUserDialog() {
             </Form.Group>
             <Button as={Col} type="submit" xs={2} className="mb-3 btn btn-primary" onClick={onSubmitEvent}>Submit</Button>
             {!loading && data && data.user &&
-                (<Table className="table table-striped">
+                (<Table striped bordered hover>
                     <thead>
                         <tr>
                             <th>Name</th>
